@@ -1,24 +1,41 @@
-import logo from './logo.svg';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import './App.css';
+import LandingPage from './components/LandingPage';
+import Header from './components/Header';
+import MainPage from './components/MainPage';
+import Home from './components/Home';
+import RepoPage from './components/RepoPage';
+
+
+const appRouter = createBrowserRouter([
+    {
+      path:"/",
+      element: <Home/>,
+      children: [
+        {
+          path:"/",
+          element:<LandingPage/>
+        },
+        {
+          path:"/repo/:username",
+          element:<MainPage/>
+        },
+        {
+          path:"/repo/:username/:reponame",
+          element:<RepoPage/>
+        },
+      ]
+    }
+  ]);
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    
+    <div>
+      <RouterProvider router={appRouter}/>
     </div>
+    
   );
 }
 
