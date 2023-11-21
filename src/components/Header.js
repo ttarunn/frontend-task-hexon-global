@@ -35,7 +35,7 @@ const Header = () => {
     return (
       <header className='py-3 shadow bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white w-full'>
           <nav className='flex'>
-            <Link to={'/'} className='mr-4 mt-2 px-6 py-2 cursor-pointer'>
+            <Link to={'/'} className='mr-4 mt-1 px-6 py-2 cursor-pointer font-bold text-xl'>
               GitClone
             </Link>
             <ul className='flex ml-auto'>

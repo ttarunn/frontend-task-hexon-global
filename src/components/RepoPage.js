@@ -16,7 +16,7 @@ const RepoPage = () => {
     const dispatch = useDispatch();
 
     const params = useLocation().pathname.split('repos')[1];
-  console.log(params)
+  
     async function getRepocontent(params){
       const data = await fetchRepoContent(params);
       const json = await data.json()
@@ -31,13 +31,13 @@ const RepoPage = () => {
   return (
     <div className='flex'>
         <ProfilePage data={storeUserData}/>
-        <div className='w-full'>
+        <div className='w-full border-collapse'>
             <table className="w-full">
-                <div className='flex justify-around'>
-                  <h1 className='text-xl m-2 font-semibold'>Repo Name : {params}</h1>
-                  <Link to={`/repos${params}/history`} className='text-xl m-2 cursor-pointer'>History</Link>
-                </div>
-            {content.length && content.map((repo)=> <tr key={repo.id} className='border-2'><td><AllFiles repo={repo} /></td></tr>)}
+                <tr className='flex justify-around border-4'>
+                  <td className='text-xl m-2 font-semibold'>Repo Name : {params}</td>
+                  <Link to={`/repos${params}/history`} className='text-xl m-2 cursor-pointer border rounded-lg px-5 py-1 bg-gray-400 text-white'>All History</Link>
+                </tr>
+            {content?.map((repo)=> <tr key={repo.id} className='border-2'><td><AllFiles repo={repo} /></td></tr>)}
             </table>
         </div>
         <Outlet/>

@@ -99,3 +99,36 @@ export async function fetchSingleCommit(param, name){
     }
 };
 
+
+
+export async function downloadFile(fileUrl) {
+    const split = fileUrl.split('/');
+    const fileName = split[split.length-1]
+    console.log(fileName)
+    try {
+      const response = await fetch(fileUrl, {
+        method: 'GET',
+        headers: {
+            "Authorization": `Bearer ${process.env.REACT_APP_GITHUB_TOKEN}`
+        }
+    });
+      const blob = await response.blob();
+
+      // Create a temporary link element
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = fileName;
+
+      // Append the link to the document body
+      document.body.appendChild(link);
+
+      // Trigger the click event on the link
+      link.click();
+
+      // Remove the link from the document
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error('Error downloading file:', error);
+    }
+  };
+

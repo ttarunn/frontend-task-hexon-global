@@ -11,14 +11,12 @@ import NotFound from "./NotFound";
 const MainPage = () => {
   const [data, setData] = useState([]);
   const [repos, setRepos] = useState([]);
-  const [totalPage, setTotalPage] = useState(1);
+  
   const [page, setPage] = useState(1);
   const [error, setError] = useState(false);
 
   const dispatch = useDispatch();
-  const storeUserData = useSelector((store) => store.dataSlice.userData);
-  const storeReposData = useSelector((store) => store.repoSlice.reposData);
-  const [click, setClick] = useState(false)
+  
   const { username } = useParams();
 
     async function getUserInfoFun(user, page) {
@@ -32,13 +30,6 @@ const MainPage = () => {
         setRepos(repoJson);
         dispatch(updateRepos(repoJson));
 
-          if(repos.length % 20 === 0){
-            setTotalPage(repos.length / 20)
-          }else if(repos.length % 20 < 0){
-            setTotalPage(1)
-          }else{
-            setTotalPage(parseInt(repos.length / 20)+1)
-          }
         } catch (error) {
         setError(true);
         }
@@ -89,8 +80,9 @@ const MainPage = () => {
         
     </div>
     <div className="w-full flex gap-5 justify-center my-5 text-2xl">
-      <button type="button" className="border rounded-lg px-5 bg-slate-200" onClick={()=> pagePrev()}>Prev</button>
-      <button className="border rounded-lg px-5 bg-slate-200" onClick={()=> pageNext()}>Next</button>
+      
+      <button type="button" className={`border rounded-lg px-5  ${page === 1 ? 'bg-slate-300 text-gray-400':'bg-slate-100'}`} onClick={()=> pagePrev()}>Prev</button>Page : {page}
+      <button className={`border rounded-lg px-5  ${repos.length === 20 ? 'bg-slate-100 ':'bg-slate-300 text-gray-400'}`} onClick={()=> pageNext()}>Next</button>
     </div>
     </div>
   );

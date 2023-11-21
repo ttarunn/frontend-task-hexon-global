@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { CiFileOn } from "react-icons/ci";
 import { FaFolder } from "react-icons/fa";
 import { IoMdDownload } from "react-icons/io";
-import { fetchCommits, fetchFolderContent, fetchRepoContent, fetchSingleCommit } from '../helpers/config';
+import { downloadFile, fetchCommits, fetchFolderContent, fetchRepoContent, fetchSingleCommit } from '../helpers/config';
 import Content from './Content';
 import { useLocation } from 'react-router-dom';
 
@@ -32,7 +32,7 @@ const AllFiles = ({ repo }) => {
       const singleCommit = await fetchSingleCommit(path, name);
       const singleCommitJson = await singleCommit.json();
       setCommitData(singleCommitJson);
-      console.log(singleCommitJson)
+      
       if(len === 1){
         setSubRepo(json);
         // console.log(subRepo)
@@ -54,13 +54,19 @@ const AllFiles = ({ repo }) => {
       }else{
         setViewCode(!viewCode)
       }
-    }
+    };
+
+    // content.download_url
   return (
     <div className='p-2 w-full'>
       <div className='flex gap-2 justify-between'>
+
       <h1 className='cursor-pointer flex gap-2' onClick={handleOnclick}>{len > 1 ? <CiFileOn size={"1.5rem"}/> : <FaFolder size={"1.5rem"} color='#0096FF' />}{name}</h1>
+
       <div>{commitData[0]?.commit?.message} {commitData[0]?.commit?.committer?.date?.split('T')[0]}</div>
-      <a href={content.download_url} className='float-left' >Download File<IoMdDownload className='inline-block m-2'/></a>
+
+      {len > 1 ? <a href={content.download_url} target='_blank' className='float-left cursor-pointer'>Download File<IoMdDownload className='inline-block m-2'/></a>:<div className='w-36'></div>}
+
       </div>
       <div className=''>
       {len > 1 ? viewCode && <Content content={content}/> : view && <table className="w-full">
