@@ -5,6 +5,7 @@ import Header from './components/Header';
 import MainPage from './components/MainPage';
 import Home from './components/Home';
 import RepoPage from './components/RepoPage';
+import History from './components/History';
 
 
 const appRouter = createBrowserRouter([
@@ -17,13 +18,17 @@ const appRouter = createBrowserRouter([
           element:<LandingPage/>
         },
         {
-          path:"/repo/:username",
+          path:"/repos/:username",
           element:<MainPage/>
         },
         {
-          path:"/repo/:username/:reponame",
+          path:"/repos/:username/:reponame",
           element:<RepoPage/>
         },
+        {
+          path:"/repos/:username/:reponame/history",
+          element:<History/>
+        }
       ]
     }
   ]);

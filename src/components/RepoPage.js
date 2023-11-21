@@ -3,7 +3,7 @@ import ProfilePage from './ProfilePage'
 import { useDispatch, useSelector } from 'react-redux';
 import { updateReposContent } from '../helpers/repoSlice';
 import AllFiles from './AllFiles';
-import { useLocation } from 'react-router-dom';
+import { Link, Outlet, useLocation } from 'react-router-dom';
 import { fetchRepoContent } from '../helpers/config';
 
 const RepoPage = () => {
@@ -15,13 +15,14 @@ const RepoPage = () => {
 
     const dispatch = useDispatch();
 
-    const params = useLocation().pathname.split('repo')[1];
-
+    const params = useLocation().pathname.split('repos')[1];
+  console.log(params)
     async function getRepocontent(params){
       const data = await fetchRepoContent(params);
       const json = await data.json()
       dispatch(updateReposContent(json));
-      setContent(json)
+      setContent(json);
+      console.log(content)
     }
 
     useEffect(()=> {
@@ -32,10 +33,14 @@ const RepoPage = () => {
         <ProfilePage data={storeUserData}/>
         <div className='w-full'>
             <table className="w-full">
-                <tr className='text-xl m-2'><th>Files</th></tr>
+                <div className='flex justify-around'>
+                  <h1 className='text-xl m-2 font-semibold'>Repo Name : {params}</h1>
+                  <Link to={`/repos${params}/history`} className='text-xl m-2 cursor-pointer'>History</Link>
+                </div>
             {content.length && content.map((repo)=> <tr key={repo.id} className='border-2'><td><AllFiles repo={repo} /></td></tr>)}
             </table>
         </div>
+        <Outlet/>
     </div>
   )
 }
