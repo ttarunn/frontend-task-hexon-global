@@ -6,12 +6,14 @@ import MainPage from './components/MainPage';
 import Home from './components/Home';
 import RepoPage from './components/RepoPage';
 import History from './components/History';
+import Error from './components/Error';
 
 
 const appRouter = createBrowserRouter([
     {
       path:"/",
       element: <Home/>,
+      errorElement: <Error />,
       children: [
         {
           path:"/",
@@ -23,7 +25,7 @@ const appRouter = createBrowserRouter([
         },
         {
           path:"/repos/:username/:reponame",
-          element:<RepoPage/>
+          element:<RepoPage/>,
         },
         {
           path:"/repos/:username/:reponame/history",

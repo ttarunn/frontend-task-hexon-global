@@ -9,8 +9,6 @@ import { fetchRepoContent } from '../helpers/config';
 const RepoPage = () => {
     const [content, setContent] = useState([]);
 
-    const storeReposContent = useSelector(store => store.repoSlice.reposContent);
-    // http://localhost:3000/repo/ttarunn/assignment-2
     const storeUserData = useSelector(store => store.dataSlice.userData);
 
     const dispatch = useDispatch();
@@ -22,7 +20,7 @@ const RepoPage = () => {
       const json = await data.json()
       dispatch(updateReposContent(json));
       setContent(json);
-      console.log(content)
+      
     }
 
     useEffect(()=> {

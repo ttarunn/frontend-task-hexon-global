@@ -68,7 +68,7 @@ const AllFiles = ({ repo }) => {
       {len > 1 ? <a href={content.download_url} target='_blank' className='float-left cursor-pointer'>Download File<IoMdDownload className='inline-block m-2'/></a>:<div className='w-36'></div>}
 
       </div>
-      <div className=''>
+      <div>
       {len > 1 ? viewCode && <Content content={content}/> : view && <table className="w-full">
                 
             {subRepo.length && subRepo.map((repo)=> <tr key={repo.id} className='border-1'><td><AllFiles repo={repo} /></td></tr>)}
